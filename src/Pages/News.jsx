@@ -11,7 +11,7 @@ const News = ({country,category,articles,setArticles}) => {
     try {
       setLoading(true)
       const res = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${import.meta.env.VITE_API_KEY}`
+        `/api/news?country=${country}&category=${category}`
       );
       setArticles(res.data.articles)
     } catch (error) {
