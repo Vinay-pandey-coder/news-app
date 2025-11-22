@@ -1,11 +1,15 @@
 export default async function handler(req, res) {
+  const { q } = req.query;
+
   const apiKey = process.env.VITE_API_KEY;
-  const query = req.query.q || "";
 
-  const url = `https://newsapi.org/v2/top-headlines?q=${query}&apiKey=${apiKey}`;
-  
-  const response = await fetch(url);
-  const data = await response.json();
+  const url = `https://newsapi.org/v2/top-headlines?q=${q}&apiKey=${apiKey}`;
 
-  res.status(200).json(data);
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Error searching news" });
+  }
 }

@@ -23,7 +23,7 @@ const Navbar = ({ setArticles }) => {
     try {
       const res = await axios.get(
         `/api/search?q=${search}`
-      );
+      ).then(res => setArticles(res.data.articles));
       setArticles(res.data.articles);
     } catch (error) {
       console.log(error);
